@@ -7,17 +7,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <title>Finance Tracker</title>
+    <title>Crypto Tracker</title>
 </head>
 <body>
-    <main>    
-        <h1>Finance Tracker</h1>
+    <main> 
+        <nav class="navbar">   
+            <h1>Crypto Tracker</h1>
+        </nav>
         <!--Form goes here-->
-
-        <select id="list-dropdown" name="list">
-        </select>
+        <form id="assets-form" class="control container">
+            <div class="select">
+                <select id="list-dropdown" name="list"></select>
+                <input id="amount-input" class="input" type="text" placeholder="Amount">
+            </div>
+            <button id="submit-btn" class="button is-info is-outlined">Add to my list</button>
+        </form>
         
-        <div>
+        <div id="assets-list">
             <!--Where the list is appended-->
         </div>
     </main>
