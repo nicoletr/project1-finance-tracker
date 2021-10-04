@@ -10,9 +10,9 @@
     <title>Crypto Tracker</title>
 </head>
 <body>
-    <main> 
+    <main class="is-multiline"> 
         <nav class="navbar">   
-            <h1>Crypto Tracker</h1>
+        Crypto Tracker
         </nav>
         <!--Form goes here-->
         <form id="assets-form" class="control container">
@@ -23,8 +23,26 @@
             <button id="submit-btn" class="button is-info is-outlined">Add to my list</button>
         </form>
         
-        <div id="assets-list">
-            <!--Where the list is appended-->
+        <!-- Have put break elements in for the time being until the page is styled with CSS -->
+        <br>
+        <br>
+        <br>
+
+        <div id="assets-list" class="container">
+            <!--Where the assets list is appended-->
+            <table id="saved-portfolio" class="table table-is-hoverable">
+                <tr id="table-headings">
+                    <th id="currency-header">Currency</th>
+                    <th id="amount-header">Amount</th>
+                    <th id="unit-value-header">Unit Value</th>
+                    <th id="total-value-header">Total Value</th>
+                </tr>
+                <tr>
+                    <td id="currency">Bitcoin</td>
+                    <td id="amount">3</td>
+                    <td id="unit-value">46000</td>
+                    <td id="total-value">138000</td>
+                </tr>
         </div>
     </main>
 
