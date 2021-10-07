@@ -36,10 +36,9 @@ fetch(listUrl)
     for (let i = 0; i < data.length; i++) {
         option = document.createElement('option')
         option.text = data[i].name
-        option.label = data[i].id
-        option.value = data[i].current_price
+        option.value = data[i].id
         dropdown.add(option)
-    }  
+    }  console.log(data)
     })  
   }  
 )  
@@ -49,8 +48,25 @@ fetch(listUrl)
 
 //Function to autofill value field once user has chosen from the dropdown selection
 function currencyValue(){
-  currentValue.value = "$" + this.value;
-  console.log(this);
+  fetch(coinIdUrl + this.value)
+  .then(  
+    function(response) {  
+      if (response.status !== 200) {  
+        console.warn('Looks like there was a problem. Status Code: ' + 
+          response.status)  
+        return  
+      }
+  
+      // Examine the text in the response  
+      response.json().then(function(data) {  
+        currentValue.value = data.market_data.current_price.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+        }
+      )    
+    }  
+  )  
+  .catch(function(err) {  
+    console.error('Fetch Error -', err)  
+  })
 };
 
 //Event listener for when an option in the dropdown is selected
