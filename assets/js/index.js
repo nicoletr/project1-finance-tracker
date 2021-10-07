@@ -8,6 +8,7 @@ const currencyAmount = document.getElementById("amount-input")
 const savedPortfolio = document.getElementById("saved-portfolio")
 const tableHeadings = document.getElementById("table-headings")
 const grandTotal = document.getElementById("total")
+const currentValue = document.getElementById("current-value")
 
 var localPortfolio = JSON.parse(localStorage.getItem("portfolioArray")) || []
 
@@ -35,7 +36,8 @@ fetch(listUrl)
     for (let i = 0; i < data.length; i++) {
         option = document.createElement('option')
         option.text = data[i].name
-        option.value = data[i].id
+        option.label = data[i].id
+        option.value = data[i].current_price
         dropdown.add(option)
     }  
     })  
@@ -47,7 +49,7 @@ fetch(listUrl)
 
 //Function to autofill value field once user has chosen from the dropdown selection
 function currencyValue(){
-  currentValue.value = this.value;
+  currentValue.value = "$" + this.value;
   console.log(this);
 };
 
