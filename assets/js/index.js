@@ -7,7 +7,7 @@ const dropdown = document.getElementById("list-dropdown")
 const currencyAmount = document.getElementById("amount-input")
 const savedPortfolio = document.getElementById("saved-portfolio")
 const tableHeadings = document.getElementById("table-headings")
-const currentValue = document.getElementById("current-value")
+const grandTotal = document.getElementById("total")
 
 var localPortfolio = JSON.parse(localStorage.getItem("portfolioArray")) || []
 
@@ -35,13 +35,12 @@ fetch(listUrl)
     for (let i = 0; i < data.length; i++) {
         option = document.createElement('option')
         option.text = data[i].name
-        option.label = data[i].id
-        option.value = data[i].current_price
+        option.value = data[i].id
         dropdown.add(option)
     }  
     })  
   }  
-)
+)  
 .catch(function(err) {  
   console.error('Fetch Error -', err) 
 })
@@ -88,9 +87,9 @@ async function populateTable() {
           var newValue = document.createElement("td")
           // Fill variables with localStorage data and fresh API response
           newName.innerHTML = tableName
-          newAmount.innerHTML = tableAmount
-          newPrice.innerHTML = tablePrice
-          newValue.innerHTML = tableValue
+          newAmount.innerHTML = tableAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          newPrice.innerHTML = tablePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+          newValue.innerHTML = tableValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
           // Append the table
           savedPortfolio.appendChild(newCoin)
           newCoin.appendChild(newName)
@@ -109,19 +108,19 @@ async function populateTable() {
 // Populate the table with localStorage on page load
 populateTable()
 
-// // Event listener for refresh button
-// refreshBtn.addEventListener("click", function (event) {
-//   event.preventDefault()
-//   populateTable()
-// })
+// Event listener for refresh button
+refreshBtn.addEventListener("click", function (event) {
+  event.preventDefault()
+  populateTable()
+})
 
 // Event listener for clear button
-// clearBtn.addEventListener("click", function (event) {
-//   event.preventDefault()
-//   localStorage.clear()
-//   localPortfolio = []
-//   deleteRows()
-// })
+clearBtn.addEventListener("click", function (event) {
+  event.preventDefault()
+  localStorage.clear()
+  localPortfolio = []
+  deleteRows()
+})
 
 // Function to delete portfolio table rows
 function deleteRows() {
@@ -151,9 +150,9 @@ function addPortfolioItem(coinID, coinAmount) {
         var newValue = document.createElement("td")
         // Fill variables with API response
         newName.innerHTML = data.name
-        newAmount.innerHTML = coinAmount
-        newPrice.innerHTML = data.market_data.current_price.usd
-        newValue.innerHTML = Math.round((data.market_data.current_price.usd * coinAmount) * 100) / 100
+        newAmount.innerHTML = coinAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        newPrice.innerHTML = data.market_data.current_price.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+        newValue.innerHTML = (Math.round((data.market_data.current_price.usd * coinAmount) * 100) / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })
         // Append the table
         savedPortfolio.appendChild(newCoin)
         newCoin.appendChild(newName)
