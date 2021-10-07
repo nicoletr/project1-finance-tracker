@@ -45,6 +45,15 @@ fetch(listUrl)
   console.error('Fetch Error -', err) 
 })
 
+//Function to autofill value field once user has chosen from the dropdown selection
+function currencyValue(){
+  currentValue.value = this.value;
+  console.log(this);
+};
+
+//Event listener for when an option in the dropdown is selected
+dropdown.addEventListener("change", currencyValue);
+
 // Function to prepopulate the table with coins saved in localStorage
 async function populateTable() { 
   // Clear the table before re-adding the elements
