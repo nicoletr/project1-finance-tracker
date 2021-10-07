@@ -7,6 +7,7 @@ const dropdown = document.getElementById("list-dropdown")
 const currencyAmount = document.getElementById("amount-input")
 const savedPortfolio = document.getElementById("saved-portfolio")
 const tableHeadings = document.getElementById("table-headings")
+const currentValue = document.getElementById("current-value")
 
 var localPortfolio = JSON.parse(localStorage.getItem("portfolioArray")) || []
 
@@ -34,15 +35,25 @@ fetch(listUrl)
     for (let i = 0; i < data.length; i++) {
         option = document.createElement('option')
         option.text = data[i].name
-        option.value = data[i].id
+        option.label = data[i].id
+        option.value = data[i].current_price
         dropdown.add(option)
     }  
     })  
   }  
-)  
+)
 .catch(function(err) {  
   console.error('Fetch Error -', err) 
 })
+
+//Function to autofill value field once user has chosen from the dropdown selection
+function currencyValue(){
+  currentValue.value = this.value;
+  console.log(this);
+};
+
+//Event listener for when an option in the dropdown is selected
+dropdown.addEventListener("change", currencyValue);
 
 // Function to prepopulate the table with coins saved in localStorage
 async function populateTable() { 
@@ -98,19 +109,19 @@ async function populateTable() {
 // Populate the table with localStorage on page load
 populateTable()
 
-// Event listener for refresh button
-refreshBtn.addEventListener("click", function (event) {
-  event.preventDefault()
-  populateTable()
-})
+// // Event listener for refresh button
+// refreshBtn.addEventListener("click", function (event) {
+//   event.preventDefault()
+//   populateTable()
+// })
 
 // Event listener for clear button
-clearBtn.addEventListener("click", function (event) {
-  event.preventDefault()
-  localStorage.clear()
-  localPortfolio = []
-  deleteRows()
-})
+// clearBtn.addEventListener("click", function (event) {
+//   event.preventDefault()
+//   localStorage.clear()
+//   localPortfolio = []
+//   deleteRows()
+// })
 
 // Function to delete portfolio table rows
 function deleteRows() {
