@@ -7,6 +7,7 @@ const dropdown = document.getElementById("list-dropdown")
 const currencyAmount = document.getElementById("amount-input")
 const savedPortfolio = document.getElementById("saved-portfolio")
 const tableHeadings = document.getElementById("table-headings")
+const grandTotal = document.getElementById("total")
 
 var localPortfolio = JSON.parse(localStorage.getItem("portfolioArray")) || []
 
@@ -77,9 +78,9 @@ async function populateTable() {
           var newValue = document.createElement("td")
           // Fill variables with localStorage data and fresh API response
           newName.innerHTML = tableName
-          newAmount.innerHTML = tableAmount
-          newPrice.innerHTML = tablePrice
-          newValue.innerHTML = tableValue
+          newAmount.innerHTML = tableAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+          newPrice.innerHTML = tablePrice.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+          newValue.innerHTML = tableValue.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
           // Append the table
           savedPortfolio.appendChild(newCoin)
           newCoin.appendChild(newName)
@@ -140,9 +141,9 @@ function addPortfolioItem(coinID, coinAmount) {
         var newValue = document.createElement("td")
         // Fill variables with API response
         newName.innerHTML = data.name
-        newAmount.innerHTML = coinAmount
-        newPrice.innerHTML = data.market_data.current_price.usd
-        newValue.innerHTML = Math.round((data.market_data.current_price.usd * coinAmount) * 100) / 100
+        newAmount.innerHTML = coinAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        newPrice.innerHTML = data.market_data.current_price.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+        newValue.innerHTML = (Math.round((data.market_data.current_price.usd * coinAmount) * 100) / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })
         // Append the table
         savedPortfolio.appendChild(newCoin)
         newCoin.appendChild(newName)
