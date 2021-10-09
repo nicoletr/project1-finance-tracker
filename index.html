@@ -19,7 +19,7 @@
             <div class="select">
                 <select id="list-dropdown" name="list"></select>
             </div>
-            <input id="current-value" class="input" type="text" placeholder="Amount">
+            <input id="current-value" class="input" type="text" placeholder="Value">
             <input id="amount-input" class="input" type="text" placeholder="Amount">
             <button id="submit-btn" class="button is-info is-outlined">Add to my list</button>
             <button id="refresh-btn" class="button is-info is-outlined">Refresh</button>
@@ -33,19 +33,28 @@
 
         <div id="assets-list" class="container">
             <!--Where the assets list is appended-->
-            <table id="saved-portfolio" class="table table-is-hoverable">
-                <tr id="table-headings">
-                    <th id="currency-header">Currency</th>
-                    <th id="amount-header">Amount</th>
-                    <th id="unit-value-header">Unit Value</th>
-                    <th id="total-value-header">Total Value</th>
-                </tr>
-                <tr>
-                    <td id="currency">Bitcoin</td>
-                    <td id="amount">3</td>
-                    <td id="unit-value">46000</td>
-                    <td id="total-value">138000</td>
-                </tr>
+            <table class="table table-is-hoverable">
+                <caption>My Assets</caption>
+                <thead id="table-headers">
+                    <tr>
+                        <th id="currency-header">Currency</th>
+                        <th id="amount-header">Amount</th>
+                        <th id="unit-value-header">Unit Value</th>
+                        <th id="total-value-header">Total Value</th>
+                    </tr>
+                </thead>
+                <tbody id="saved-portfolio">
+
+                </tbody>
+                <tfoot id ="table-total">
+                    <tr>
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td id="overall-total"></td>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
     </main>
     

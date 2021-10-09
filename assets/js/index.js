@@ -1,14 +1,15 @@
 const listUrl = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
 const coinIdUrl ="https://api.coingecko.com/api/v3/coins/"
+
 const submitBtn = document.getElementById("submit-btn")
 const refreshBtn = document.getElementById("refresh-btn")
 const clearBtn = document.getElementById("clear-btn")
 const dropdown = document.getElementById("list-dropdown")
 const currencyAmount = document.getElementById("amount-input")
 const savedPortfolio = document.getElementById("saved-portfolio")
-const tableHeadings = document.getElementById("table-headings")
 const grandTotal = document.getElementById("total")
 const currentValue = document.getElementById("current-value")
+const tableTotal = document.getElementById("overall-total")
 
 var localPortfolio = JSON.parse(localStorage.getItem("portfolioArray")) || []
 
@@ -47,7 +48,7 @@ fetch(listUrl)
 })
 
 //Function to autofill value field once user has chosen from the dropdown selection
-function currencyValue(){
+function renderValue(){
   fetch(coinIdUrl + this.value)
   .then(  
     function(response) {  
@@ -69,8 +70,8 @@ function currencyValue(){
   })
 };
 
-//Event listener for when an option in the dropdown is selected
-dropdown.addEventListener("change", currencyValue);
+// Event listener for when an option in the dropdown is selected
+dropdown.addEventListener("change", renderValue);
 
 // Function to prepopulate the table with coins saved in localStorage
 async function populateTable() { 
@@ -143,8 +144,10 @@ clearBtn.addEventListener("click", function (event) {
 // Function to delete portfolio table rows
 function deleteRows() {
   var rowCount = savedPortfolio.rows.length
-  for (var i = rowCount - 1; i > 0; i--) {
-    savedPortfolio.deleteRow(i)  }
+  for (let i = rowCount - 1; i >= 0; i--) {
+    savedPortfolio.deleteRow(i)
+  }
+  tableTotal.innerHTML = "$" + 0 + "00"
 }
 
 // Function to add a new portfolio item when the submit button is pressed
@@ -189,8 +192,10 @@ function addPortfolioItem(coinID, coinAmount) {
         localPortfolio.push(newItem)
         // Set localPortfolio to localStorage
         localStorage.setItem("portfolioArray", JSON.stringify(localPortfolio))
+
+        calculateTotal()
       })    
-    }  
+    }
   )  
   .catch(function(err) {  
     console.error('Fetch Error -', err)  
@@ -202,23 +207,20 @@ submitBtn.addEventListener("click", function (event) {
   event.preventDefault()
   currentId = document.getElementsByTagName("option")[dropdown.selectedIndex].value
   currentAmnt = currencyAmount.value
-  // console.log(currentId)
-  // console.log(currencyAmount.value)
   addPortfolioItem(currentId, currentAmnt)
 })
 
+console.log (localPortfolio)
 
-// // // Testing API URL code below;
-// fetch(
-//     "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=20&page=1&sparkline=false"
-//   )
-// .then(function (response) {
-//     if (!response.ok) {
-//     throw new Error(`HTTP error! status: ${response.status}`)
-//     }
-//     return response.json()
-// })
-// .then(function (data) {
-//     // DO THINGS WITH TEH DATA
-//     console.log(data)
-// })
+//Calulates the total of the table
+function calculateTotal() {
+  var sum = 0;
+  // Loops over the existing elements and parses the string to an integer
+  for (let i = 0; i < localPortfolio.length; i++){
+    let number = Number(localPortfolio[i].value.replace(/[^0-9.-]+/g,""))
+    sum += number
+  }
+  tableTotal.innerHTML = "$" + sum.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+calculateTotal()
