@@ -38,7 +38,7 @@ fetch(listUrl)
         option.text = data[i].name
         option.value = data[i].id
         dropdown.add(option)
-    }  console.log(data)
+    }  
     })  
   }  
 )  
@@ -96,7 +96,7 @@ async function populateTable() {
         // Discover new price and value of each coin 
         await response.json().then(function(data) {  
           tablePrice = data.market_data.current_price.usd
-          tableValue = Math.round((tablePrice * tableAmount) * 100) / 100
+          tableValue = (tablePrice * tableAmount)
           // Variables to create new elements
           var newCoin = document.createElement("tr")
           var newName = document.createElement("td")
@@ -113,7 +113,7 @@ async function populateTable() {
           newCoin.appendChild(newName)
           newCoin.appendChild(newAmount)
           newCoin.appendChild(newPrice)
-          newCoin.appendChild(newValue) 
+          newCoin.appendChild(newValue)           
         })   
       }  
     )  
@@ -171,8 +171,11 @@ function addPortfolioItem(coinID, coinAmount) {
         // Fill variables with API response
         newName.innerHTML = data.name
         newAmount.innerHTML = coinAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+        newAmountSaved = coinAmount
         newPrice.innerHTML = data.market_data.current_price.usd.toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+        newPriceSaved = data.market_data.current_price.usd
         newValue.innerHTML = (Math.round((data.market_data.current_price.usd * coinAmount) * 100) / 100).toLocaleString('en-US', { style: 'currency', currency: 'USD' })
+        newValueSaved = Math.round((data.market_data.current_price.usd * coinAmount) * 100) / 100
         // Append the table
         savedPortfolio.appendChild(newCoin)
         newCoin.appendChild(newName)
@@ -182,9 +185,9 @@ function addPortfolioItem(coinID, coinAmount) {
         // Set new coin details to local storage
         var newItem = {
           "name": newName.innerHTML,
-          "amount": newAmount.innerHTML,
-          "price": newPrice.innerHTML,
-          "value":  newValue.innerHTML,
+          "amount": newAmountSaved,
+          "price": newPriceSaved,
+          "value":  newValueSaved,
           "coinId": coinID
         }
         // Push new item into the localPortfolio object
