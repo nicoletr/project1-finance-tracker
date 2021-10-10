@@ -9,7 +9,6 @@ const currencyAmount = document.getElementById("amount-input")
 const savedPortfolio = document.getElementById("saved-portfolio")
 const grandTotal = document.getElementById("total")
 const currentValue = document.getElementById("current-value")
-const tableTotal = document.getElementById("overall-total")
 
 var localPortfolio = JSON.parse(localStorage.getItem("portfolioArray")) || []
 
@@ -147,7 +146,7 @@ function deleteRows() {
   for (let i = rowCount - 1; i >= 0; i--) {
     savedPortfolio.deleteRow(i)
   }
-  tableTotal.innerHTML = "$" + 0 + "00"
+  grandTotal.innerHTML = "$" + 0 + "00"
 }
 
 // Function to add a new portfolio item when the submit button is pressed
@@ -220,7 +219,7 @@ function calculateTotal() {
     let number = Number(localPortfolio[i].value.replace(/[^0-9.-]+/g,""))
     sum += number
   }
-  tableTotal.innerHTML = "$" + sum.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+  grandTotal.innerHTML = "$" + sum.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
 calculateTotal()
