@@ -146,7 +146,7 @@ function deleteRows() {
   for (let i = rowCount - 1; i >= 0; i--) {
     savedPortfolio.deleteRow(i)
   }
-  grandTotal.innerHTML = "$" + 0 + "00"
+  grandTotal.innerHTML = "$" + 0 + ".00"
 }
 
 // Function to add a new portfolio item when the submit button is pressed
@@ -219,8 +219,9 @@ function calculateTotal() {
   var sum = 0;
   // Loops over the existing elements and parses the string to an integer
   for (let i = 0; i < localPortfolio.length; i++){
-    let number = Number(localPortfolio[i].value.replace(/[^0-9.-]+/g,""))
-    sum += number
+    let number = Number(localPortfolio[i].value)
+    console.log(number)
+    sum = sum + number
   }
   grandTotal.innerHTML = "$" + sum.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
