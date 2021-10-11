@@ -25,7 +25,7 @@ THEN I can see the total for all my assets
 ```
 ## Mock-up
 The following screenshot shows the web application's appearance and functionality:
-![Crypto tracker screenshot](link)
+![Crypto tracker screenshot](assets/images/screenshot.png)
 
 ## Links
 - [GitHub Repo](https://github.com/nicoletr/project1-finance-tracker)
