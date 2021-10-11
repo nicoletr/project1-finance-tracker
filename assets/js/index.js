@@ -130,6 +130,7 @@ populateTable()
 refreshBtn.addEventListener("click", function (event) {
   event.preventDefault()
   populateTable()
+  calculateTotal()
 })
 
 // Event listener for clear button
@@ -212,15 +213,12 @@ submitBtn.addEventListener("click", function (event) {
   addPortfolioItem(currentId, currentAmnt)
 })
 
-console.log (localPortfolio)
-
 //Calulates the total of the table
 function calculateTotal() {
   var sum = 0;
   // Loops over the existing elements and parses the string to an integer
   for (let i = 0; i < localPortfolio.length; i++){
     let number = Number(localPortfolio[i].value)
-    console.log(number)
     sum = sum + number
   }
   grandTotal.innerHTML = "$" + sum.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
