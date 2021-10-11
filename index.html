@@ -7,17 +7,61 @@
     <title>Crypto Portfolio</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="./test.css">
     
   </head>
   <body>
 
     <section class="hero is-success">
-        <div class="hero-body">
+
+        <nav class="navbar" role="navigation" aria-label="main-navigation">
+
+            <div class="navbar-brand is-size-3 has-text-weight-bold">
+                <a a id="crypto-title" href="#crypto-title" class="navbar-item">Crypto Portfolio</a>
+            </div>
+
+            <div class="navbar-menu has-text-weight-semibold">
+                <div class="navbar-start">
+                  <a class="navbar-item" href="index.html">
+                    Home
+                  </a>
+            
+                  <a class="navbar-item" href="https://www.coingecko.com/en" target="_blank">
+                    Charts
+                  </a>
+            
+                  <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                      Markets
+                    </a>
+            
+                    <div class="navbar-dropdown has-background-success-light has-text-weight-semibold has-text-success">
+
+                      <a class="navbar-item" href="https://www.binance.com/en" target="_blank">
+                        Binance
+                      </a>
+                      <a class="navbar-item" href="https://www.btcmarkets.net/" target="_blank">
+                        BTC Markets
+                      </a>
+                      <a class="navbar-item" href="https://www.kucoin.com/" target="_blank">
+                        KuCoin
+                      </a>
+                      <a class="navbar-item" href="https://ftx.com/markets" target="_blank">
+                        FTX
+                      </a>
+                      <a class="navbar-item" href="https://www.bitstamp.net/" target="_blank">
+                        Bitstamp
+                      </a>
+
+                    </div>
+                  </div>
+                </div>
+        </nav>
+
+        <!-- <div class="hero-body">
             <div class="container">
                 <a id="crypto-title" href="#crypto-title" class="title has-text-weight-bold">Crypto Currency Portfolio Tracker</a>
             </div>
-        </div>
+        </div> -->
     </section>
   
     <section class="section has-background-success-light">
@@ -112,9 +156,10 @@
 
     <section class="section has-background-success-light">
         <div class="container" style="margin-top: 10px">
+            <div class="title has-text-success">My Portfolio</div>
             <table class="table has-background-success-light is-fullwidth">
 
-                <thead id="saved-portfolio" class="is-success">
+                <thead class="is-success">
                     <tr>
                         <th id="currency-header" class="has-text-success has-text-weight-semibold">Currency</th>
                         <th id="amount-header" class="has-text-success has-text-weight-semibold">Amount</th>
@@ -123,7 +168,7 @@
                     </tr>
                 </thead>
                 
-                <tbody>
+                <tbody id= "saved-portfolio">
 
                 </tbody>
 
